@@ -128,6 +128,27 @@ public class ComplaintController {
         }
     }
 
+    @PostMapping("/{id}/escalate")
+    @PreAuthorize("hasAnyRole('OFFICER', 'ADMIN')")
+    public ResponseEntity<?> escalateComplaint(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> body,
+            Authentication authentication) {
+        try {
+            User officer = ((UserPrincipal) authentication.getPrincipal()).getUser();
+            Boolean escalate = (Boolean) body.getOrDefault("escalated", true);
+            
+            Complaint updated = complaintService.escalateComplaint(id, escalate, officer);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", e.getMessage()));
+        }
+    }
+
     @PostMapping("/{id}/comments")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> addComment(

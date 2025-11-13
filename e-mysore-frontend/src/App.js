@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
+import AdminComplaintDetail from "./components/AdminComplaintDetail";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminComplaints from "./components/AdminComplaints";
 import "./App.css";
@@ -123,6 +124,16 @@ function AppInner() {
           } />
 
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={
+            <ProtectedRoute requireRole={"ADMIN"}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/complaints/:id" element={
+            <ProtectedRoute requireRole={"ADMIN"}>
+              <AdminComplaintDetail />
+            </ProtectedRoute>
+          } />
           <Route path="/admin" element={
             <ProtectedRoute requireRole={"ADMIN"}>
               <AdminDashboard />

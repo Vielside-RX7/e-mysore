@@ -145,6 +145,52 @@ public class ComplaintService {
         return savedComplaint;
     }
 
+    @Transactional
+    public Complaint escalateComplaint(Long id, Boolean escalate, User officer) {
+        Complaint complaint = complaintRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Complaint not found"));
+
+        boolean oldEscalated = complaint.isEscalated();
+        complaint.setEscalated(escalate);
+        complaint.setUpdatedAt(LocalDateTime.now());
+        
+        Complaint savedComplaint = complaintRepository.save(complaint);
+
+        // Create audit log
+        ComplaintAuditLog auditLog = new ComplaintAuditLog();
+        auditLog.setComplaint(savedComplaint);
+        auditLog.setUser(officer);
+        auditLog.setAction("ESCALATED");
+        auditLog.setOldValue(String.valueOf(oldEscalated));
+        auditLog.setNewValue(String.valueOf(escalate));
+        auditLog.setComment("Complaint manually escalated by admin");
+        auditLogRepository.save(auditLog);
+
+        // Notify the citizen
+        if (escalate) {
+            notificationService.createNotification(
+                complaint.getUser(),
+                "Complaint Escalated",
+                "Your complaint #" + id + " has been escalated to high priority",
+                Notification.NotificationType.COMPLAINT_ESCALATED
+            );
+
+            // Notify assigned department contact if present
+            try {
+                String assigned = complaint.getAssignedDept();
+                if (assigned != null && !assigned.isEmpty()) {
+                    Department dept = departmentRepository.findByName(assigned);
+                    if (dept != null) {
+                        String deptMsg = "URGENT: Complaint #" + id + " has been escalated to high priority. Immediate action required.";
+                        notificationService.sendDirectContactNotification(dept.getContactEmail(), dept.getPhone(), "Complaint Escalated - " + id, deptMsg);
+                    }
+                }
+            } catch (Exception ignored) {}
+        }
+
+        return savedComplaint;
+    }
+
     private String uploadImage(MultipartFile file, Long userId) throws IOException {
         String key = String.format("complaints/%d/%s-%s", 
             userId,
