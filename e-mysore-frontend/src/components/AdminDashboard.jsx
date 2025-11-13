@@ -7,6 +7,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedStatus, setSelectedStatus] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,9 +57,20 @@ export default function AdminDashboard() {
     : 0;
 
   const categories = Object.keys(categoryStats).sort((a, b) => categoryStats[b] - categoryStats[a]);
-  const displayedComplaints = selectedCategory 
-    ? complaints.filter(c => (c.category || "Other") === selectedCategory)
-    : complaints.slice(0, 10);
+
+  // Apply filters: category and status (selectedStatus can be 'ESCALATED' to mean escalated=true)
+  let filtered = complaints;
+  if (selectedCategory) {
+    filtered = filtered.filter(c => (c.category || "Other") === selectedCategory);
+  }
+  if (selectedStatus) {
+    if (selectedStatus === 'ESCALATED') {
+      filtered = filtered.filter(c => c.escalated);
+    } else {
+      filtered = filtered.filter(c => c.status === selectedStatus);
+    }
+  }
+  const displayedComplaints = filtered.slice(0, 10);
 
   const handleLogout = () => {
     localStorage.removeItem("emysore_token");
@@ -80,47 +92,67 @@ export default function AdminDashboard() {
         </button>
       </div>
 
-      {/* Key Metrics */}
+      {/* Key Metrics as interactive filter buttons */}
       <section className="admin-metrics">
-        <div className="metric-card metric-total">
+        <button
+          className={`metric-card metric-total ${selectedStatus === null ? 'active' : ''}`}
+          onClick={() => { setSelectedStatus(null); setSelectedCategory(null); }}
+          title="Show all complaints"
+        >
           <div className="metric-icon">📊</div>
           <div className="metric-info">
             <div className="metric-label">Total Complaints</div>
             <div className="metric-value">{totalComplaints}</div>
           </div>
-        </div>
+        </button>
 
-        <div className="metric-card metric-open">
+        <button
+          className={`metric-card metric-open ${selectedStatus === 'OPEN' ? 'active' : ''}`}
+          onClick={() => { setSelectedStatus('OPEN'); setSelectedCategory(null); }}
+          title="Show open complaints"
+        >
           <div className="metric-icon">🔔</div>
           <div className="metric-info">
             <div className="metric-label">Open</div>
             <div className="metric-value">{statusStats.OPEN}</div>
           </div>
-        </div>
+        </button>
 
-        <div className="metric-card metric-progress">
+        <button
+          className={`metric-card metric-progress ${selectedStatus === 'IN_PROGRESS' ? 'active' : ''}`}
+          onClick={() => { setSelectedStatus('IN_PROGRESS'); setSelectedCategory(null); }}
+          title="Show in-progress complaints"
+        >
           <div className="metric-icon">⏳</div>
           <div className="metric-info">
             <div className="metric-label">In Progress</div>
             <div className="metric-value">{statusStats.IN_PROGRESS}</div>
           </div>
-        </div>
+        </button>
 
-        <div className="metric-card metric-resolved">
+        <button
+          className={`metric-card metric-resolved ${selectedStatus === 'RESOLVED' ? 'active' : ''}`}
+          onClick={() => { setSelectedStatus('RESOLVED'); setSelectedCategory(null); }}
+          title="Show resolved complaints"
+        >
           <div className="metric-icon">✓</div>
           <div className="metric-info">
             <div className="metric-label">Resolved</div>
             <div className="metric-value">{statusStats.RESOLVED}</div>
           </div>
-        </div>
+        </button>
 
-        <div className="metric-card metric-escalated">
+        <button
+          className={`metric-card metric-escalated ${selectedStatus === 'ESCALATED' ? 'active' : ''}`}
+          onClick={() => { setSelectedStatus('ESCALATED'); setSelectedCategory(null); }}
+          title="Show escalated complaints"
+        >
           <div className="metric-icon">⚡</div>
           <div className="metric-info">
             <div className="metric-label">Escalated</div>
             <div className="metric-value">{escalatedCount}</div>
           </div>
-        </div>
+        </button>
 
         <div className="metric-card metric-resolution">
           <div className="metric-icon">📈</div>

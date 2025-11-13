@@ -23,6 +23,9 @@ public class Complaint {
     private String location;
     private String imageUrl;
     private String assignedDept;
+    @Lob
+    @Column(name = "department_hierarchy", columnDefinition = "TEXT")
+    private String departmentHierarchy;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
     private LocalDateTime deadline;
@@ -36,6 +39,9 @@ public class Complaint {
     private String sentiment;
     private Double confidenceScore;
     private String remarks;
+
+    public String getDepartmentHierarchy() { return departmentHierarchy; }
+    public void setDepartmentHierarchy(String departmentHierarchy) { this.departmentHierarchy = departmentHierarchy; }
 
     // Getters and setters for User
     public User getUser() { return user; }

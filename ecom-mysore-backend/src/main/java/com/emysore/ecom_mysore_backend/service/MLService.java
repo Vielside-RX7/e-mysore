@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MLService {
@@ -74,6 +76,30 @@ public class MLService {
                 } catch (NumberFormatException e) {
                     logger.warn("Invalid confidence score format in ML response", e);
                     complaint.setConfidenceScore(0.5); // Default confidence
+                }
+            }
+
+            // New: pick up assigned department (if ML provided one)
+            Object assignedDept = response.get("assigned_dept");
+            if ((complaint.getAssignedDept() == null || complaint.getAssignedDept().isEmpty()) && assignedDept != null) {
+                complaint.setAssignedDept(assignedDept.toString());
+            }
+
+            // Optionally persist department hierarchy if provided
+            Object deptHierarchy = response.get("department_hierarchy");
+            if (deptHierarchy != null) {
+                try {
+                    if (deptHierarchy instanceof List) {
+                        @SuppressWarnings("unchecked")
+                        List<Object> list = (List<Object>) deptHierarchy;
+                        String joined = list.stream().map(Object::toString).collect(Collectors.joining(" > "));
+                        complaint.setDepartmentHierarchy(joined);
+                    } else {
+                        complaint.setDepartmentHierarchy(deptHierarchy.toString());
+                    }
+                    logger.debug("ML suggested department hierarchy for complaint #{}: {}", complaint.getId(), complaint.getDepartmentHierarchy());
+                } catch (Exception ex) {
+                    logger.warn("Failed to parse department_hierarchy from ML response", ex);
                 }
             }
         } catch (Exception e) {
