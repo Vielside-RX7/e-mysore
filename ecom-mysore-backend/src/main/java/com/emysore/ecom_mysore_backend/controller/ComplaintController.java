@@ -89,8 +89,11 @@ public class ComplaintController {
             @RequestParam(value = "size", defaultValue = "10") int size,
             @RequestParam(value = "sort", defaultValue = "createdAt,desc") String[] sort) {
         
-        PageRequest pageRequest = PageRequest.of(page, size, 
-            Sort.by(sort[0], sort.length > 1 ? sort[1] : "desc"));
+        // parse sort param as property and direction (e.g. createdAt,desc)
+        String sortProp = sort.length > 0 ? sort[0] : "createdAt";
+        String sortDir = sort.length > 1 ? sort[1] : "desc";
+        PageRequest pageRequest = PageRequest.of(page, size,
+            Sort.by(Sort.Direction.fromString(sortDir.toUpperCase()), sortProp));
         
         return ResponseEntity.ok(complaintService.getComplaints(status, category, escalated, pageRequest));
     }

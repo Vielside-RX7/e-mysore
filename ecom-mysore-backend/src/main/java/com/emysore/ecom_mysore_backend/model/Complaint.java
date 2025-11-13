@@ -1,5 +1,6 @@
 package com.emysore.ecom_mysore_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "complaints")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Complaint {
 
     @Id

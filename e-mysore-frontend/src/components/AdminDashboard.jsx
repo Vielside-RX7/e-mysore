@@ -15,12 +15,18 @@ export default function AdminDashboard() {
 
   const fetchComplaints = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/complaints?size=100");
+      setLoading(true);
+      setError(null);
+      const headers = { 'Accept': 'application/json' };
+      const token = localStorage.getItem('emysore_token');
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+      const res = await fetch("http://localhost:8080/api/complaints?size=100", { headers });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       // Handle both paginated and non-paginated responses
       const complaintList = data.content || data;
       setComplaints(Array.isArray(complaintList) ? complaintList : []);
+      setError(null);
     } catch (e) {
       console.error("Failed to fetch complaints:", e);
       setError(e.message);

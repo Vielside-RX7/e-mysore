@@ -12,7 +12,10 @@ function Dashboard({ user }) {
         const res = await fetch("http://localhost:8080/api/complaints");
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
-        setComplaints(data);
+        // Handle both paginated and non-paginated responses
+        const complaintList = data.content || data;
+        setComplaints(Array.isArray(complaintList) ? complaintList : []);
+        setError(null);
       } catch (e) {
         // fallback: mock data so the dashboard still shows something
         console.warn("Failed to fetch complaints, using mock data:", e.message);
