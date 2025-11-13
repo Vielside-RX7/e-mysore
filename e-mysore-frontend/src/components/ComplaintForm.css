@@ -1,79 +1,309 @@
+/* iOS-inspired Complaint Form */
+
 body {
-  background: #f5f8fb;
-  font-family: "Inter", "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #f8f9fa 0%, #f0f3f7 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
 }
 
-.complaint-container {
-  max-width: 550px;
-  margin: 60px auto;
-  background: white;
-  padding: 30px 40px;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.complaint-container h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  color: #2c3e50;
-  font-weight: 600;
-}
-
-.complaint-form {
+.ios-complaint-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
-.complaint-form label {
-  font-weight: 500;
-  color: #34495e;
+.complaint-header {
+  text-align: center;
+  margin-bottom: 32px;
+  animation: slideDown 0.5s ease-out;
 }
 
-.complaint-form input,
-.complaint-form select,
-.complaint-form textarea {
-  padding: 10px 12px;
-  border: 1px solid #dcdde1;
-  border-radius: 8px;
-  font-size: 15px;
-  transition: all 0.2s ease;
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.complaint-form input:focus,
-.complaint-form select:focus,
-.complaint-form textarea:focus {
-  border-color: #3498db;
+.complaint-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.complaint-subtitle {
+  font-size: 16px;
+  color: #666666;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Form Card */
+.ios-complaint-form {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border: 1px solid #f0f0f0;
+}
+
+/* Form Group */
+.ios-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ios-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: 0.2px;
+}
+
+/* Input Fields */
+.ios-input,
+.ios-select,
+.ios-textarea {
+  padding: 14px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+  color: #1a1a1a;
+}
+
+.ios-input::placeholder,
+.ios-textarea::placeholder {
+  color: #a0a0a0;
+}
+
+.ios-input:focus,
+.ios-select:focus,
+.ios-textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.15);
+  border-color: #0071e3;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+}
+
+.ios-input:hover,
+.ios-select:hover,
+.ios-textarea:hover {
+  border-color: #d0d0d0;
+}
+
+/* File Input */
+.ios-file-input-wrapper {
+  position: relative;
+}
+
+.ios-file-input {
+  display: none;
+}
+
+.ios-file-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  border: 2px dashed #d0d0d0;
+  border-radius: 12px;
+  background: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.ios-file-label:hover {
+  border-color: #0071e3;
+  background: #f0f7ff;
+}
+
+.file-icon {
+  font-size: 24px;
+}
+
+.file-text {
+  font-size: 14px;
+  color: #666666;
+  font-weight: 500;
+}
+
+#image-upload:focus ~ .ios-file-label {
+  border-color: #0071e3;
+  background: #f0f7ff;
+}
+
+/* Image Preview */
+.ios-image-preview {
+  position: relative;
+  margin-top: 12px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .preview-image {
   width: 100%;
-  max-height: 220px;
+  max-height: 280px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-top: 10px;
-  border: 1px solid #eee;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  display: block;
 }
 
-.complaint-form button {
-  background: #1976d2;
-  color: white;
+.remove-image-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
   border: none;
   border-radius: 8px;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: 500;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
   cursor: pointer;
-  transition: background 0.25s ease;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.complaint-form button:hover {
-  background: #1565c0;
+.remove-image-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
 
-.complaint-form button:disabled {
-  background: #90caf9;
+/* Success Message */
+.ios-success-message {
+  background: #d4edda;
+  border: 1px solid #28a745;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #155724;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: slideDown 0.3s ease;
+}
+
+.ios-success-message span {
+  font-size: 16px;
+}
+
+/* Error Message */
+.ios-error-message {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #856404;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.ios-error-message span {
+  font-size: 16px;
+}
+
+/* Buttons */
+.ios-button {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.ios-button-primary {
+  background: linear-gradient(135deg, #0071e3 0%, #0099ff 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
+}
+
+.ios-button-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.4);
+}
+
+.ios-button-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.ios-button:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
+}
+
+.ios-submit-btn {
+  margin-top: 8px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .ios-complaint-container {
+    margin: 0;
+    padding: 12px;
+    min-height: 100vh;
+  }
+
+  .complaint-header {
+    margin-bottom: 24px;
+  }
+
+  .complaint-header h1 {
+    font-size: 24px;
+  }
+
+  .complaint-subtitle {
+    font-size: 14px;
+  }
+
+  .ios-complaint-form {
+    padding: 24px 16px;
+    gap: 20px;
+    border-radius: 16px;
+  }
+
+  .ios-input,
+  .ios-select,
+  .ios-textarea {
+    font-size: 16px; /* Prevents zoom on mobile */
+  }
+
+  .ios-file-label {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .preview-image {
+    max-height: 220px;
+  }
 }

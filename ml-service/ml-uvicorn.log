@@ -1,0 +1,6 @@
+INFO:     Started server process [44978]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1INFO:     127.0.0.1:59022 - "POST /predict HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:59035 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59672 - "GET /health HTTP/1.1" 200 OK

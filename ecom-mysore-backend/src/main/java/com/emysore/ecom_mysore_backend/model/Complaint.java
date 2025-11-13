@@ -26,9 +26,19 @@ public class Complaint {
     private LocalDateTime deadline;
 
     // New fields
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private boolean escalated = false;
     private String sentiment;
     private Double confidenceScore;
     private String remarks;
+
+    // Getters and setters for User
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
+    public LocalDateTime getLastModified() { return updatedAt; }
+    public void setLastModified(LocalDateTime lastModified) { this.updatedAt = lastModified; }
 }

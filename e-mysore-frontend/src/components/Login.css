@@ -1,0 +1,196 @@
+/* iOS-inspired Login Page */
+
+.ios-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0071e3 0%, #0099ff 100%);
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.ios-login-wrapper {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 360px;
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+.ios-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.ios-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.ios-subtitle {
+  font-size: 16px;
+  color: #666666;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Form */
+.ios-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.ios-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ios-input {
+  padding: 14px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+  color: #1a1a1a;
+}
+
+.ios-input::placeholder {
+  color: #a0a0a0;
+  font-weight: 400;
+}
+
+.ios-input:focus {
+  outline: none;
+  border-color: #0071e3;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+}
+
+.ios-input:hover {
+  border-color: #d0d0d0;
+}
+
+/* Error Message */
+.ios-error-message {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #856404;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.ios-error-message span {
+  font-size: 16px;
+}
+
+/* Buttons */
+.ios-button {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+  text-transform: none;
+}
+
+.ios-button-primary {
+  background: linear-gradient(135deg, #0071e3 0%, #0099ff 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
+}
+
+.ios-button-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.4);
+}
+
+.ios-button-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.ios-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Footer */
+.ios-footer {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.ios-footer p {
+  margin: 0;
+  font-size: 14px;
+  color: #666666;
+}
+
+.ios-link {
+  color: #0071e3;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.ios-link:hover {
+  color: #0099ff;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .ios-login-wrapper {
+    padding: 32px 24px;
+    border-radius: 16px;
+  }
+
+  .ios-title {
+    font-size: 24px;
+  }
+
+  .ios-subtitle {
+    font-size: 14px;
+  }
+
+  .ios-input {
+    font-size: 16px; /* Prevents zoom on mobile */
+  }
+}

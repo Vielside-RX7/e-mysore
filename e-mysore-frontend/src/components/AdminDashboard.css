@@ -1,0 +1,460 @@
+/* Admin Dashboard - iOS Styled */
+
+.admin-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8f9fa 0%, #f0f3f7 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  padding-bottom: 40px;
+}
+
+/* Header */
+.admin-header {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  padding: 32px 20px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(217, 119, 6, 0.2);
+}
+
+.admin-header-content h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.admin-header-content p {
+  font-size: 16px;
+  margin: 0;
+  opacity: 0.95;
+  font-weight: 400;
+}
+
+.admin-logout-btn {
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-logout-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Metrics Grid */
+.admin-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 24px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.metric-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.metric-icon {
+  font-size: 32px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #f0f7ff;
+}
+
+.metric-total .metric-icon {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e8f0ff 100%);
+}
+
+.metric-open .metric-icon {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.metric-progress .metric-icon {
+  background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+}
+
+.metric-resolved .metric-icon {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+}
+
+.metric-escalated .metric-icon {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+}
+
+.metric-resolution .metric-icon {
+  background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+}
+
+.metric-info {
+  flex: 1;
+}
+
+.metric-label {
+  font-size: 12px;
+  color: #666666;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.metric-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-top: 2px;
+}
+
+/* Categories Section */
+.admin-categories {
+  padding: 24px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-categories h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.category-card {
+  background: #ffffff;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  font-family: inherit;
+}
+
+.category-card:hover {
+  border-color: #0071e3;
+  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.15);
+}
+
+.category-card.active {
+  background: linear-gradient(135deg, #0071e3 0%, #0099ff 100%);
+  border-color: #0071e3;
+  color: #ffffff;
+}
+
+.category-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.category-count {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.category-bar {
+  height: 3px;
+  background: #e5e5e5;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.category-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0071e3, #0099ff);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.category-card.active .category-bar {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.category-card.active .category-bar-fill {
+  background: #ffffff;
+}
+
+/* Complaints List Section */
+.admin-complaints-list {
+  padding: 24px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-complaints-list h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+}
+
+.complaints-table-container {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e5e5e5;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.complaints-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.complaints-table th {
+  background: #f8f9fa;
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  color: #666666;
+  border-bottom: 1px solid #e5e5e5;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.complaints-table td {
+  padding: 14px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.complaints-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.complaint-id {
+  font-weight: 600;
+  color: #0071e3;
+  font-size: 13px;
+}
+
+.complaint-title {
+  font-weight: 500;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.complaint-category .badge {
+  background: #f0f7ff;
+  color: #0071e3;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.complaint-status {
+  text-align: center;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  display: inline-block;
+}
+
+.status-OPEN {
+  background: #fef3cd;
+  color: #856404;
+}
+
+.status-IN_PROGRESS {
+  background: #cfe2ff;
+  color: #084298;
+}
+
+.status-RESOLVED {
+  background: #d1e7dd;
+  color: #0a3622;
+}
+
+.complaint-location {
+  color: #666666;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.complaint-date {
+  color: #999999;
+  font-size: 13px;
+}
+
+.complaint-action {
+  text-align: center;
+}
+
+.view-btn {
+  background: linear-gradient(135deg, #0071e3 0%, #0099ff 100%);
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 113, 227, 0.3);
+}
+
+/* Loading & Empty States */
+.loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666666;
+  font-size: 14px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #a0a0a0;
+  font-size: 14px;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e5e5e5;
+}
+
+.info-banner {
+  background: #e8f4ff;
+  border: 1px solid #0099ff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #0071e3;
+  margin-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px 16px;
+  }
+
+  .admin-logout-btn {
+    align-self: flex-start;
+  }
+
+  .admin-metrics {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    padding: 16px 16px;
+  }
+
+  .admin-categories {
+    padding: 16px 16px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+
+  .complaints-table {
+    font-size: 13px;
+  }
+
+  .complaints-table th,
+  .complaints-table td {
+    padding: 10px 8px;
+  }
+
+  .complaint-title,
+  .complaint-location {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-header-content h1 {
+    font-size: 24px;
+  }
+
+  .admin-metrics {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .metric-card {
+    padding: 12px;
+  }
+
+  .metric-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .metric-value {
+    font-size: 18px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .complaints-table {
+    font-size: 12px;
+  }
+
+  .complaints-table th {
+    padding: 8px 6px;
+  }
+
+  .complaints-table td {
+    padding: 8px 6px;
+  }
+
+  .complaint-title,
+  .complaint-location {
+    max-width: 70px;
+  }
+}
